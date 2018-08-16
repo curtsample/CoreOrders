@@ -30,6 +30,18 @@ namespace CoreOrders.Controllers {
          catch(Exception ex) {
             return BadRequest(ex.Message);
          }
-      }         
+      }
+
+      [HttpPut]
+      [Route("{orderId:int}/Clear")]
+      public ActionResult Clear(int orderId) {
+         try {
+            _repository.Clear(orderId);
+            return Ok();
+         }
+         catch (Exception ex) {
+            return BadRequest(ex.Message);
+         }
+      }
    }
 }
