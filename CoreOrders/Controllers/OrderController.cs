@@ -31,7 +31,9 @@ namespace CoreOrders.Controllers {
             return BadRequest(ex.Message);
          }
       }
-
+      
+      // Decided to use HttpPut for this one as we're effectively asking the server to replace
+      // it's Order with the "cleared version" we are providing...
       [HttpPut]
       [Route("{orderId:int}/Clear")]
       public ActionResult Clear(int orderId) {
