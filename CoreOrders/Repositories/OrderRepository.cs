@@ -9,6 +9,8 @@ namespace CoreOrders.Repositories {
       public IReadOnlyCollection<Order> Orders => _orders.ToList().AsReadOnly();
       private IList<Order> _orders;
 
+      public OrderRepository() : this(new List<Order>()) { }
+
       public OrderRepository(IList<Order> orders) {
          _orders = orders ?? new List<Order>();
       }
