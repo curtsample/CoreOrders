@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CoreOrders.Models;
+using CoreOrders.Exceptions;
 
 namespace CoreOrders.Repositories {
    public class OrderRepository : IOrderRepository {
@@ -28,6 +29,13 @@ namespace CoreOrders.Repositories {
          });
 
          return orderId;
+      }
+
+      public void Update(int orderId, int itemId, int quantity) {
+         var order = _orders.FirstOrDefault(f => f.Id == orderId);
+         if (order == null) {
+            throw new OrderNotFoundException(orderId);
+         }
       }
 
       private int GetNextOrderId() =>

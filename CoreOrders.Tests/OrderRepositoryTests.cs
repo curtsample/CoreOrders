@@ -1,4 +1,5 @@
-﻿using CoreOrders.Models;
+﻿using CoreOrders.Exceptions;
+using CoreOrders.Models;
 using CoreOrders.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
@@ -21,6 +22,16 @@ namespace CoreOrders.Tests {
 
          // assert
          Assert.AreEqual(expectedId, createdId);
+      }
+
+      [TestMethod]
+      [ExpectedException(typeof(OrderNotFoundException))]
+      public void Update_WhenOrderNotFound_ThrowsOrderNotFoundException() {
+         // arrange
+         _repository = new OrderRepository(new List<Order>());         
+
+         // act & assert
+         _repository.Update(-1, -1, -1);
       }
    }
 }

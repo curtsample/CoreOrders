@@ -19,5 +19,10 @@ namespace CoreOrders.Controllers {
       [Route("Item/{id:int}")]
       public ActionResult<int> Create(int id) =>
          Ok(_repository.Create(id));
+
+      [HttpPut]
+      [Route("{orderId:int}/Item/{itemId:int}")]
+      public ActionResult Update(int orderId, int itemId, [FromBody]int quantity = 1)
+         => BadRequest(new NotImplementedException(""));
    }
 }
