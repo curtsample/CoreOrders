@@ -62,5 +62,15 @@ namespace CoreOrders.Tests {
             .Items[itemId];
          Assert.AreEqual(updatedQuantity, savedQuantity);
       }
+
+      [TestMethod]
+      [ExpectedException(typeof(OrderNotFoundException))]
+      public void Clear_WhenOrderNotFound_ThrowsOrderNotFoundException() {
+         // arrange
+         _repository = new OrderRepository(new List<Order>());
+
+         // act & assert
+         _repository.Clear(-1);
+      }
    }
 }

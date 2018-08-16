@@ -46,6 +46,17 @@ namespace CoreOrders.Repositories {
          order.Items[itemId] = quantity;
       }
 
+      /// <summary>
+      /// Clears all items from a given order
+      /// </summary>
+      /// <param name="orderId"></param>
+      public void Clear(int orderId) {
+         var order = _orders.FirstOrDefault(f => f.Id == orderId);
+         if (order == null) {
+            throw new OrderNotFoundException(orderId);
+         }
+      }
+
       private int GetNextOrderId() =>
          _orders.Any() ? _orders.Max(m => m.Id) + 1 : 1;
    }
