@@ -13,6 +13,17 @@ namespace CoreOrders.Repositories {
          _orders = orders ?? new List<Order>();
       }
 
-      public int Create(Item item) => throw new NotImplementedException("");
+      public int Create(Item item) {
+         var orderId = GetNextOrderId();
+         _orders.Add(new Order {
+            Id = orderId,
+            Items = new Dictionary<int, int> { { item.Id, 1 } }
+         });
+
+         return orderId;
+      }
+
+      private int GetNextOrderId() =>
+         _orders.Any() ? _orders.Max(m => m.Id) + 1 : 1;
    }
 }
