@@ -13,11 +13,16 @@ namespace CoreOrders.Repositories {
          _orders = orders ?? new List<Order>();
       }
 
-      public int Create(Item item) {
+      /// <summary>
+      /// Creates a new <see cref="Order" containing the item provided with a quantity of 1 />
+      /// </summary>
+      /// <param name="itemId"></param>
+      /// <returns></returns>
+      public int Create(int itemId) {
          var orderId = GetNextOrderId();
          _orders.Add(new Order {
             Id = orderId,
-            Items = new Dictionary<int, int> { { item.Id, 1 } }
+            Items = new Dictionary<int, int> { { itemId, 1 } }
          });
 
          return orderId;

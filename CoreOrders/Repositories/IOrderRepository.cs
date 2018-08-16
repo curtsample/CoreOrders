@@ -5,6 +5,6 @@ using System.Text;
 
 namespace CoreOrders.Repositories {
    public interface IOrderRepository {
-      int Create(Item item);
+      int Create(int itemId);
    }
 }
