@@ -55,6 +55,8 @@ namespace CoreOrders.Repositories {
          if (order == null) {
             throw new OrderNotFoundException(orderId);
          }
+
+         order.Items.Clear();
       }
 
       private int GetNextOrderId() =>
