@@ -4,6 +4,7 @@ using CoreOrders.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CoreOrders.Tests {
@@ -32,6 +33,34 @@ namespace CoreOrders.Tests {
 
          // act & assert
          _repository.Update(-1, -1, -1);
+      }
+
+      [TestMethod]
+      public void Update_WhenItemFound_ChangesItemQuantity() {
+         // arrange
+         var orderId = 1;
+         var itemId = 1;
+         var currentQuantity = 1;
+
+         var existingOrders = new List<Order> {
+            new Order {
+               Id = orderId,
+               Items = new Dictionary<int, int>{ { itemId, currentQuantity } }
+            }
+         };
+         _repository = new OrderRepository(existingOrders);
+
+         var updatedQuantity = 5;
+
+         // act
+         _repository.Update(orderId, itemId, updatedQuantity);
+
+         // assert
+         var savedQuantity = _repository
+            .Orders
+            .First(w => w.Id == orderId)
+            .Items[itemId];
+         Assert.AreEqual(updatedQuantity, savedQuantity);
       }
    }
 }
