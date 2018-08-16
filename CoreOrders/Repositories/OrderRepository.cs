@@ -31,11 +31,19 @@ namespace CoreOrders.Repositories {
          return orderId;
       }
 
+      /// <summary>
+      /// Updates the item in the given order to the provided quantity
+      /// </summary>
+      /// <param name="orderId"></param>
+      /// <param name="itemId"></param>
+      /// <param name="quantity"></param>
       public void Update(int orderId, int itemId, int quantity) {
          var order = _orders.FirstOrDefault(f => f.Id == orderId);
          if (order == null) {
             throw new OrderNotFoundException(orderId);
          }
+
+         order.Items[itemId] = quantity;
       }
 
       private int GetNextOrderId() =>
